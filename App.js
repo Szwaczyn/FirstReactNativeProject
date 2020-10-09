@@ -4,6 +4,7 @@ import { Button, StyleSheet, Text, View, TextInput} from 'react-native';
 
 export default function App() {
   const [name, setName] = useState('Michal');
+  const [age, setAge] = useState(32);
   const [person, setPerson] = useState({
     name: 'Mariusz',
     age: 21,
@@ -18,11 +19,23 @@ export default function App() {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.boldText}>Hi, ia am {name}</Text>
+        <Text style={styles.boldText}>Hi, ia am {name} and my age is {age}</Text>
         <Text style={styles.boldText}>His name is {person.name} and his age is {person.age}</Text>
       </View>
-
-      <TextInput style={styles.input} placeholder='e.g. John Doe' />
+      
+      <Text>Write down your name</Text>
+      <TextInput
+        multiline 
+        style={styles.input} 
+        placeholder='e.g. John Doe' 
+        onChangeText={(value) => setName(value)}/>
+        
+      <Text>Write down your age</Text>
+      <TextInput 
+        keyboardType='numeric'
+        style={styles.input} 
+        placeholder="e.g. 45" 
+        onChangeText={(value) => setAge(value)} />
 
       <Text>Econa maker</Text>
 
