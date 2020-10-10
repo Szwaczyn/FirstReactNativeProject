@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View, TextInput, ScrollView} from 'react-native';
+import { Button, StyleSheet, Text, View, TextInput, ScrollView, FlatList, TouchableOpacity} from 'react-native';
 
 export default function App() {
   const [name, setName] = useState('Michal');
@@ -23,6 +23,13 @@ export default function App() {
 
       setName('Roman');
       setPerson({ name: 'Poncjusz', age: 23});
+  }
+
+  const pressHandler = (key) => {
+    console.log(key);
+    setPeople( (prevPeople) => {
+      return prevPeople.filter( person => person.key != key);
+    } );
   }
 
   return (
@@ -56,7 +63,18 @@ export default function App() {
 
     {/* Lists and scrols view */}
     
-      <ScrollView>
+    <FlatList 
+      numColumns={2}
+      keyExtractor={(item) => item.key}
+      data={people}
+      renderItem={( { item } ) => (
+        <TouchableOpacity onPress={() => pressHandler(item.key)}>
+          <Text style={styles.item}>{item.name}</Text>
+        </TouchableOpacity>
+      )}
+    />
+
+      {/* <ScrollView>
       { people.map((item) => {
         return (
           <View key={item.key}>
@@ -65,7 +83,7 @@ export default function App() {
         )
         
       })}
-    </ScrollView>
+    </ScrollView> */}
     </View>
   );
 }
